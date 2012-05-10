@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block style %}
+    {{ block.super }}
+    table
+    {
+	font-size: 8pt;
+	border-width: 2px;
+    }
+    tr.heading
+    {
+	border-top-style: solid;
+	border-bottom-style: solid;
+	border-width: 2px;
+    }
+    td
+    {
+	border-style: inherit;
+	border-width: inherit;
+	border-color: inherit;
+    }
+    .row1
+    {
+	background: #D9D8EB;
+    }
+    .col1
+    {
+	width: 110px;
+	text-align: center;
+    }
+    .colmain
+    {
+	cursor: pointer;
+	max-width: 50px;
+    }
+    .grayed-out
+    {
+        background-color: #333;
+    }
+    .highlighted
+    {
+	background-color: rgba(212, 167, 242, 0.50);
+    }
+{% endblock %}
+{% block script %}
+{{ block.super }}
+$(document).ready(function(){
+    $(".colmain").mouseover(function(){
+	worksheet_highlight('over', this);
+    })
+    $(".colmain").mouseout(function(){
+	worksheet_highlight('out', this);
+    })
+    $(".clickable").click(function() {
+	worksheet_toggle(this);
+    })
+})
+function worksheet_toggle(element) {
+    ajax_url = "/worksheet/ajax/incrementstatus/" + $(element).attr("song_id") + "/" + $(element).attr("milestone_id");
+    $.getJSON(ajax_url, function(data) {
+	$(element).html(data.html);
+	$(element).removeClass();
+	$(element).addClass(data.css_class);
+    });
+}
+function worksheet_highlight(trigger, element){
+    // Toggles the background color of the headings
+    song_id = $(element).attr("song_id");
+    milestone_id = $(element).attr("milestone_id");
+    row_selector = "td.col1[milestone_id='" + milestone_id + "']";
+    col_selector = "th.colmain[song_id='" + song_id + "']";
+    // For mouse over event...
+    if (trigger == "over"){
+	$(row_selector).addClass("highlighted");
+	$(col_selector).addClass("highlighted");
+    } // ...for mouse out event.
+    else if (trigger == "out"){
+	$(row_selector).removeClass("highlighted");
+	$(col_selector).removeClass("highlighted");
+    }
+}
+{% endblock %}
+{% block content %}
+{#<div class="newline">&nbsp;</div>#}
+Further modification can be done through the <a href="/admin/">admin tab</a>.
+<table>
+  <tr class="heading">
+    <td class="col1"><a href="modify/" class="btn" style="font-size: 100%;">Modify</a></th>
+    {% for song in song_list %}<th class="colmain" song_id="{{song.id}}">{{song}}</th>{% endfor %}
+  </tr>
+  {# Attributes (recording order, bitrate, etc) #}
+  {% for attribute in attribute_list %}
+  <tr>
+    {% for song_attr in attribute %}
+    <td class="{% if forloop.first %}col1{% else %}colmain{% endif %}">{{ song_attr }}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+  {% for milestone_group in milestone_group_list %}
+  <tr class="heading">
+    <th colspan="{{number_of_columns}}">{{ milestone_group.group_name }}</th>
+  </tr>
+  {% for row in milestone_group.group_row %}
+  <tr class="{% cycle 'row1' 'row2' %}">
+    {% autoescape off %}
+    {% for column in row %}
+    {% if forloop.first %}
+    <td class="col1" milestone_id="{{column.milestone_id}}">{{column.display}}</td>
+    {% else %}
+    <td class="colmain clickable {{column.css_class}}" song_id="{{column.song_id}}" milestone_id="{{column.milestone_id}}">{{column.display}}</td>
+    {% endif %}
+    {% endfor %}
+    {% endautoescape %}
+  </tr>
+  {% endfor %}
+  {% endfor %}
+</table>
+{% endblock %}

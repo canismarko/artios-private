@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Practice Log{% endblock %}
+{% block style %}
+{{ block.super }}
+{% endblock %}
+
+{% block content %}
+<table>
+  <tr>
+    <td><a><a href="/practice/add/" class="btn">Add Entry</a></a></th>
+    <td><a href="/practice/{{last_week}}/" class="btn">&lt;&lt;</a></th>
+    <th>Week {{ week }}</th>
+    <td><a href="/practice/{{next_week}}/" class="btn">&gt;&gt;</a></th>
+    <td><a href="/practice/{{today_url}}/" class="btn">Today</a></th>
+  </tr>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Mon</th>
+    <th>Tue</th>
+    <th>Wed</th>
+    <th>Thu</th>
+    <th>Fri</th>
+    <th>Sat</th>
+    <th>Sun</th>
+  </tr>
+  <tr>
+    <th>{{year}}</th>
+    {% for day in days_of_the_week %}
+    <th>[{{ day }}]</th>
+    {% endfor %}
+    <th>Total</th>
+    <th>Points</th>
+  </tr>
+  {% for member in practice_log %}
+  <tr>
+    {% for day in member %}
+    {% if day.total != 0 %}
+    <td><a href="{{day.modify_url}}">{{day.total}}</a></td>
+    {% else %}
+    <td>&nbsp;</td>
+    {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+{{ monday_secs }}
+{% endblock %}

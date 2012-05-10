@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block nav %}<!--Navigation bar disabled for login page-->{% endblock %}
+{% block script %}/* Javascript removed for login page */{% endblock %}
+{% block style %}
+{{ block.super }}
+#login_form
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+{% endblock %}
+
+{% block content %}
+	  <table id="login_form">
+	    <form action="" method="POST">
+	      <tr>
+		<td><label for="username">Username:</label></td>
+		<td><input type="text" name="username" id="username" /></td>
+	      </tr><tr>
+		<td><label for="password">Password:</label></td>
+		<td><input type="password" name="password" id="password"/></td>
+	      </tr><tr>
+		<td>{% csrf_token %}</td>
+		<td><input type="submit" value="Login" /></td>
+	      </tr>
+	    </form>
+	  </table>
+{% endblock %}

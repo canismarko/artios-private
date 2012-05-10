@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Practice log for {{date_string}}</h3>
+{% for form in form_list %}
+<form action="" method="POST">
+  <table>
+    {{ form.form.as_table }}
+  </table>
+  {% csrf_token %}
+  <input type="hidden" name="modify_id" value="{{ form.id }}" />
+  <input type="submit" name="_modify" value="Modfiy" />
+  <input type="submit" name="_delete" value="Delete" />
+  <input type="submit" name="_cancel" value="Cancel" />
+</form>
+<hr />
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block style %}
+{{ block.super }}
+i
+{
+    margin: 2px;
+}
+{% endblock %}
+{% block script %}
+{{ block.super }}
+$(document).ready(function(){
+    $('.twistie-target').hide();
+    //$('.twistie-target').css('display', 'none');
+    $('i.twistie-trigger').click(function(){
+	toggletwistie(this, $(this).attr("twistie-target"))
+    })
+})
+function toggletwistie(trigger, target) {
+    if ($(target).css('display') == 'none') 
+    {
+	$(target).slideDown(function() {
+	    $(trigger).removeClass('icon-plus-sign');
+	    $(trigger).addClass('icon-minus-sign');
+	})
+    }
+    else {
+	$(target).slideUp(function() {
+	    $(trigger).removeClass('icon-minus-sign');
+	    $(trigger).addClass('icon-plus-sign');
+	})
+    }
+}
+{% endblock %}
+{% block content %}
+<dl>
+{% for minutes in minutes_list %}
+<dt><i class="twistie-trigger icon-plus-sign" twistie-target="#target-{{minutes.id}}"></i><a href="{{minutes.id}}/">{{ minutes.date }}</a></dt>
+{% autoescape off %}
+<dd class="twistie-target" id="target-{{minutes.id}}">{{ minutes.toc }}</dd>
+{% endautoescape %}
+{% endfor %}
+</dl>
+{% endblock %}
+

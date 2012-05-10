@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block style %}
+{{ block.super }}
+.todo
+{
+    color: red;
+}
+.done
+{
+    color: green;
+}
+td.buttoncell
+{
+    padding-left: 2px;
+    padding-right: 2px;
+}
+{% endblock %}
+{% block content %}
+{# This tables puts out the list of Artios tasks that need to be done #}
+
+<table>
+  <tr>
+    <td colspan="2" class="buttoncell"><a href="add/" class="btn">Add Task</a></td>
+    <th>Assigned</th>
+    <th>Status</th>
+    <th>Due Date</th>
+    <th>Action</th>
+    <th>Comments</th>
+  </tr>
+  {% for task in tasks %}
+  <tr>
+    <td class="buttoncell"><a href="/tasks/{{ task.id }}/modify/" class="btn">Modify</a></td>
+    <td class="buttoncell"><a href="/tasks/{{ task.id }}/delete/" class="btn">Delete</a></td>
+    <td>{{ task.assignee }}</td>
+    <td class="{{ task.status.css_class}}">{{ task.status }}</td> {# Add CSS to color code status cells #}
+    <td>{{ task.due_date }}</td>
+    <td>{{ task.action }}</td>
+    <td>{{ task.comments }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

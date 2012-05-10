@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block style %}
+{{ block.super }}
+a#new
+{
+    width: 10%;
+}
+td.active a
+{
+    color: green;
+}
+td.inactive a
+{
+    color: red;
+}
+.active,.inactive
+{
+    padding: 0px;
+    padding-left: 5px
+}
+{% endblock %}
+{% block script %}
+{{ block.super }}
+{% endblock %}
+{% block content %}
+<a class="btn" href="add/" id="new">New Transaction</a>
+<p><strong>Account balance: </strong>{{ balance_display }}</p>
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Amount</th>
+  </tr>
+  {% for transaction in transaction_list %}
+  <tr>
+    {% if transaction.active %}
+    <td class="active"><a href="toggle/{{transaction.id}}">&#10004;</a></td>
+    {% else %}
+    <td class="inactive"><a href="toggle/{{transaction.id}}">&#10008;</a></td>
+    {% endif %}
+    <td>{{ transaction.date|date:"d M Y" }}</td>
+    <td>{{ transaction.description }}</td>
+    <td>{{ transaction.amount }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}
+

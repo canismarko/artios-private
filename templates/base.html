@@ -1,0 +1,98 @@
+{#<!DOCTYPE html>#}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{% load static %}
+<html lang="en">
+  <head>
+    <title>{% block title %}Private Site{% endblock %}</title>
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <link rel="shortcut icon" href="{% get_static_prefix %}favicon.png" />
+    {% block external_style %}
+    <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}twitter-bootstrap-b261f97/docs/assets/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="{% get_static_prefix %}css/smoothness/jquery-ui-1.8.19.custom.css" />
+    {% endblock %}
+    <style type="text/css">
+    {% block style %}
+    body
+    {
+	margin-top: 50px;
+	background-image: url('{% get_static_prefix %}background.jpg');
+	background-repeat: repeat-x;
+	background-attachment: fixed;
+    }
+    .footer
+    {
+	/* position: fixed; */
+	/* bottom: 0; */
+	width: 100%;
+	text-align: center;
+    }
+    .errorlist
+    {
+	color: red;
+	list-style-type: none;
+    }
+    table
+    {
+    	border-collapse: collapse;
+    }
+    td
+    {
+    	text-align: center;
+    	padding-left: 10px;
+    	padding-right: 10px;
+    }
+    th
+    {
+    	padding-left: 5px;
+    	padding-right: 5px;
+    }
+    {% endblock %}
+    </style>
+    {% block external_scripts %}
+    <script type="text/javascript" src="{% get_static_prefix %}jquery.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}js/jquery-ui-1.8.19.custom.min.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}twitter-bootstrap-b261f97/js/bootstrap-collapse.js"></script>
+    {% endblock %}
+    <script type="text/javascript">
+    {% block script %}
+    $(document).ready(function(){	
+	$('.date').datepicker({dateFormat: "yy-mm-dd"});
+    })
+    {% endblock %}
+    </script>
+  </head>
+  <body>
+    {% block nav %}
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+	  <ul class="nav">
+	    <li{% if 'tasks' in request.get_full_path %} class="active"{% endif %}><a href="/tasks/">Tasks</a></li>
+	    <li{% if 'practice' in request.get_full_path %} class="active"{% endif %}><a href="/practice/">Practice</a></li>
+	    <li{% if 'worksheet' in request.get_full_path %} class="active"{% endif %}><a href="/worksheet/">Worksheet</a></li>
+	    <li{% if 'minutes' in request.get_full_path %} class="active"{% endif %}><a href="/minutes/">Minutes</a></li>
+	    <li{% if 'TODO' in request.get_full_path %} class="active"{% endif %}><a href="#">Calendar</a></li>
+	    <li{% if 'savings' in request.get_full_path %} class="active"{% endif %}><a href="/savings/">Savings</a></li>
+	    <li{% if 'TODO' in request.get_full_path %} class="active"{% endif %}><a href="#">Misc</a></li>
+	  </ul>
+	  <ul class="nav pull-right">
+	    <li class="pull-right"><a href="/admin/">Admin</a></li>
+	    <li class="pull-right"><a href="/accounts/logout/">Logout</a></li>
+	  </ul>
+      </div>
+    </div>
+    {% endblock %}
+    <div id="content">
+    {% block content %}
+    Hello, world!
+    {% endblock %}
+    </div>
+    {% block footer %}
+    <div class="footer">
+      <hr/>
+      <div id="copyright">&copy; Mark Wolf 2012 - All rights reserved</div>
+      <div id="privacy"><a href="http://www.youtube.com/watch?v=oHg5SJYRHA0">Privacy Policy</a></div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

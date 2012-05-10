@@ -1,0 +1,13 @@
+{% extends 'base.html' %}j
+
+{% block content %}
+{# Ask the user for confirmation to delete something #}
+<p>Are you sure you want to delete the following entry?</p>
+<pre>{{name}}{% for name_item in name_list %}{{ name_item }}<br />{% endfor %}</pre>
+<form action="" method="POST">
+<input type="hidden" name="confirm" value="yes" />
+<input type="hidden" name="modify_id" value="{{entry_id}}" />
+{% csrf_token %}
+<input type="submit" value="Delete" name="_delete"/>
+<input type="submit" value="Cancel" name="_cancel"/>
+{% endblock %}

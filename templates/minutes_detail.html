@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block style %}
+{{ block.super }}
+{% endblock %}
+{% block script %}
+{{ block.super }}
+$(document).ready(function() {
+    $("html").scrollTop(300);
+})
+{% endblock %}
+{% block content %}
+<h1>Minutes for {{ minutes.date }}</h1>
+{% autoescape off %}
+{{minutes.toc}}
+{{minutes.content}}
+{% endautoescape %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h3>{% block heading %}Add new {{display}}{% endblock %}</h3>
+
+{% if form.errors %}
+<p class="error">Please correct the error{{ form.errors|pluralize }} below.</p>
+{% endif %}
+<form action="" method="POST">
+  <table>
+    {% if song_name %}
+    <tr>
+      <th>Song:</th>
+      <td>{{ song_name }}</td>
+    </tr>
+    {% endif %}
+    {% if milestone_name %}
+    <tr>
+      <th>Milestone:</th>
+      <td>{{ milestone_name }}</td>
+    </tr>
+    {% endif %}
+    {{ form.as_table }}
+  </table>
+  {% csrf_token %}
+  {% if buttons %}
+  {% for button in buttons %}
+  <input type="submit" value="{{ button.value }}" name="{{ button.name }}" />
+  {% endfor %}
+  {% else %}
+  <input type="submit" value="Submit">
+  {% endif %}
+</form>
+{% endblock %}

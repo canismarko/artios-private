@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Successfully deleted the following task:</p>
+<pre>{{ name }}</pre>
+<p>Return to <a href="{{ next_url }}">{{ next }}</a>.</p>
+{% endblock %}

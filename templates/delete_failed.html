@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{# The delete operation failed and we're now relaying that info the user #}
+<p>There was a problem while deleting the following entry:</p>
+<pre>{{ name }}</pre>
+<p>Return to <a href="{{ next_url }}">{{ next }}</a>.</p>
+{% endblock %}

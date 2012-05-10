@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>Practice log for {{member.display_name}} ({{member.full_name}})</h3>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Description</th>
+    <th>Duration</th>
+    <th>Points</th>
+  </tr>
+  {% for entry in entry_list %}
+  <tr>
+    <td>{{entry.timestamp}}</td>
+    <td>{{entry.description}}</td>
+    <td>{{entry.duration}}</td>
+    <td>{{entry.points}}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
