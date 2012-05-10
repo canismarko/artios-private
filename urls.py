@@ -34,4 +34,9 @@ urlpatterns = patterns('',
 
                        # The meeting minutes app
                        url('^minutes/', include('artios_privatesite.minutes.urls')),
+
+                       # The calendar. This does not exist as an app 
+                       # but rather lives in the 'main' module
+                       url('^calendar/$', 'main.views.calendar'),
 )
+

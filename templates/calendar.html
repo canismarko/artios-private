@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block style %}{{block.super}}
+#content
+{
+    height: 75%;
+    width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+iframe
+{
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+{% endblock %}
+{% block content %}
+<iframe src="https://www.google.com/calendar/embed?src=artiosband%40gmail.com&ctz=America/New_York"></iframe>
+{% endblock %}
