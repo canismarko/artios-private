@@ -53,11 +53,13 @@
     <script type="text/javascript" src="{% get_static_prefix %}jquery.js"></script>
     <script type="text/javascript" src="{% get_static_prefix %}js/jquery-ui-1.8.19.custom.min.js"></script>
     <script type="text/javascript" src="{% get_static_prefix %}twitter-bootstrap-b261f97/js/bootstrap-collapse.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}twitter-bootstrap-b261f97/js/bootstrap-dropdown.js"></script>
     {% endblock %}
     <script type="text/javascript">
     {% block script %}
     $(document).ready(function(){	
 	$('.date').datepicker({dateFormat: "yy-mm-dd"});
+	$('.dropdown-toggle').dropdown();
     })
     {% endblock %}
     </script>
@@ -71,7 +73,13 @@
 	    <li{% if 'practice' in request.get_full_path %} class="active"{% endif %}><a href="/practice/">Practice</a></li>
 	    <li{% if 'worksheet' in request.get_full_path %} class="active"{% endif %}><a href="/worksheet/">Worksheet</a></li>
 	    <li{% if 'minutes' in request.get_full_path %} class="active"{% endif %}><a href="/minutes/">Minutes</a></li>
-	    <li{% if 'calendar' in request.get_full_path %} class="active"{% endif %}><a href="/calendar/">Calendar</a></li>
+	    <li class="dropdown{% if 'calendar' in request.get_full_path %} active{% endif %}">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Calendar <b class="caret"></b></a>
+	      <ul class="dropdown-menu">
+		<li><a href="/calendar/artios/">Artios</a></li>
+		<li><a href="/calendar/wss/">WSS</a></li>
+	      </ul>
+	    </li>
 	    <li{% if 'savings' in request.get_full_path %} class="active"{% endif %}><a href="/savings/">Savings</a></li>
 	    <li{% if 'TODO' in request.get_full_path %} class="active"{% endif %}><a href="#">Misc</a></li>
 	  </ul>

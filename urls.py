@@ -37,6 +37,6 @@ urlpatterns = patterns('',
 
                        # The calendar. This does not exist as an app 
                        # but rather lives in the 'main' module
-                       url('^calendar/$', 'main.views.calendar'),
+                       url('^calendar/(artios|wss)/$', 'main.views.calendar'),
 )
 
