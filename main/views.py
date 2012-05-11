@@ -1,10 +1,10 @@
 from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
-# Create your views here.
 
 def home_redirect(request):
     return redirect('/tasks/')
 
+# Displays pages with iframe for various calendars
 def calendar(request, calendar):
     if calendar == "wss":
         source = "https://www.google.com/calendar/embed?src=westernsoundstudios%40gmail.com&ctz=America/New_York"
