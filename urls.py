@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 
                        # Takes us to the tasks app
                        url('^$', 'artios_privatesite.main.views.home_redirect', name='home'),
+                       url('^wp-admin/$', 'artios_privatesite.main.views.home_redirect', name='home'),
                        url('^tasks/', include('artios_privatesite.tasks.urls')),
 
                        # And the practice log app
