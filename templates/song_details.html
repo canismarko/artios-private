@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{song.title}} - {{song.artist}}</h2>
+<ul>
+  <li><a href="modify/">Edit</a></li>
+  <li><a href="lyrics/">Lyrics</a></li>
+  <li><a href="chords/">Chords</a></li>
+</ul>
+<dl>
+  <dt>Key</dt>
+  <dd>{{song.key}}&nbsp;</dd>
+  <dt>Tempo</dt>
+  <dd>{{song.tempo}}&nbsp;</dd>
+  <dt>Status</dt>
+  <dd>{{song.status}}&nbsp;</dd>
+  <dt>Album</dt>
+  <dd>{{song.album}}&nbsp;</dd>
+  <dt>Order</dt>
+  <dd>{{song.order}}&nbsp;</dd>
+  <dt>Singer</dt>
+  <dd>{{song.band_singer}}&nbsp;</dd>
+  <dt>Band</dt>
+  <dd>{{song.band}}&nbsp;</dd>
+  <dt>Notes</dt>
+  <dd>{{song.notes}}&nbsp;</dd>
+</dl>
+{% endblock %}
+

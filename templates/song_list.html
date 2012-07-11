@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="add/">Add</a>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Key</th>
+    <th>Singer</th>
+    <th>Status</th>
+  </tr>
+{% for song in song_list %}
+  <tr>
+    <td><a href="{{song.id}}/">{{song.title}}</a></td>
+    <td>{{song.artist}}</td>
+    <td>{{song.key}}</td>
+    <td>{{song.band_singer}}</td>
+    <td>{{song.status}}</td>
+    <td><a href="{{song.id}}/modify/">Edit</a></td>
+    <td><a href="{{song.id}}/lyrics/">Lyrics</a></td>
+    <td><a href="{{song.id}}/chords/">Chords</a></td>
+  </tr>
+{% endfor %}
+</table>
+{% endblock %}

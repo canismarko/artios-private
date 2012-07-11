@@ -36,8 +36,13 @@ urlpatterns = patterns('',
                        # The meeting minutes app
                        url('^minutes/', include('artios_privatesite.minutes.urls')),
 
+                       # Set lists app (songlist)
+                       url('^songs/', include('artios_privatesite.songs.urls')),
+
                        # The calendar. This does not exist as an app 
                        # but rather lives in the 'main' module
                        url('^calendar/(artios|wss)/$', 'main.views.calendar'),
+
+                       
 )
 
