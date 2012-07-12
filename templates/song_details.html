@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>{{song.title}} - {{song.artist}}</h2>
+{% if form %}
+<form action="" method="POST">
+<table>
+  <tr>
+    <td><input class="btn" type="submit" value="Save" /></td>
+    <td>&nbsp;</td>
+  </tr>
+{{ form.as_table }}
+</table>
+{% csrf_token %}
+</form>
+{% else %}
 <ul>
   <li><a href="modify/">Edit</a></li>
   <li><a href="lyrics/">Lyrics</a></li>
@@ -24,5 +36,6 @@
   <dt>Notes</dt>
   <dd>{{song.notes}}&nbsp;</dd>
 </dl>
+{% endif %}
 {% endblock %}
 
