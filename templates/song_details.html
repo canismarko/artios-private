@@ -1,40 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{song.title}} - {{song.artist}}</h2>
+<h2><a href="/songs/{{song.id}}/">{{ title }}</a></h2>
 {% if form %}
 <form action="" method="POST">
+  <input class="btn" type="submit" value="Save" />
+  <a class="btn" href="../">Cancel</a> 
 <table>
-  <tr>
-    <td><input class="btn" type="submit" value="Save" /></td>
-    <td>&nbsp;</td>
-  </tr>
 {{ form.as_table }}
 </table>
 {% csrf_token %}
 </form>
 {% else %}
 <ul>
+  <li><a href="/songs/">Song List</a></li>
   <li><a href="modify/">Edit</a></li>
-  <li><a href="lyrics/">Lyrics</a></li>
-  <li><a href="chords/">Chords</a></li>
+  <li><a href="/songs/{{song.id}}/lyrics/">Lyrics</a></li>
+  <li><a href="/songs/{{song.id}}/chords/">Chords</a></li>
 </ul>
 <dl>
-  <dt>Key</dt>
-  <dd>{{song.key}}&nbsp;</dd>
-  <dt>Tempo</dt>
-  <dd>{{song.tempo}}&nbsp;</dd>
-  <dt>Status</dt>
-  <dd>{{song.status}}&nbsp;</dd>
-  <dt>Album</dt>
-  <dd>{{song.album}}&nbsp;</dd>
-  <dt>Order</dt>
-  <dd>{{song.order}}&nbsp;</dd>
-  <dt>Singer</dt>
-  <dd>{{song.band_singer}}&nbsp;</dd>
-  <dt>Band</dt>
-  <dd>{{song.band}}&nbsp;</dd>
-  <dt>Notes</dt>
-  <dd>{{song.notes}}&nbsp;</dd>
+  {% for key, value in details_list %}
+  <dt>{{ key }}&nbsp;</dt>
+  <dd>{{ value|linebreaksbr }}&nbsp;</dd>
+  {% endfor %}
 </dl>
 {% endif %}
 {% endblock %}
