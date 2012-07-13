@@ -13,25 +13,24 @@ def list(request):
 
 # Show a detailed view of each song
 def detail(request, song_id, function="standard"):
-    details_list = {}
     song = Song.objects.get(id=song_id)
     title = song.title + " - " + song.artist
     # Decide which details to show (eg lyrics, chords)
     if function == "standard":
-        details_list['Key'] = song.key
-        details_list['Tempo'] = song.tempo
-        details_list['Status'] = song.status
-        details_list['Album'] = song.album
-        details_list['Order'] = song.order
-        details_list['Band Singer'] = song.band_singer
-        details_list['Band'] = song.band
-        details_list['Notes'] = song.notes
+        details_list = ["Key", song.key,
+                        'Tempo', song.tempo,
+                        'Status', song.status,
+                        'Album', song.album,
+                        'Order', song.order,
+                        'Band Singer', song.band_singer,
+                        'Band', song.band,
+                        'Notes', song.notes
+                        ]
     elif function == "lyrics":
-        details_list['Lyrics'] = song.lyrics
+        details_list = ['Lyrics', song.lyrics]
     elif function == "chords":
-        details_list['Chords'] = song.chords
-    # Sort and display the list
-    details_list = sorted(details_list.iteritems())
+        details_list = ['Chords', song.chords]
+    # Display the list
     return render_to_response('song_details.html',
                               locals(),
                               RequestContext(request))
@@ -76,21 +75,3 @@ def edit(request, song_id=None, function="standard"):
     return render_to_response('song_details.html',
                               locals(),
                               RequestContext(request))
-
-# # Show the lyrics of a song
-# def lyrics(request, song_id):
-#     details_list = {}
-#     song = Song.objects.get(id=song_id)
-#     details_list = sorted(details_list.iteritems())
-#     return render_to_response('song_details.html',
-#                               locals(),
-#                               RequestContext(request))
-
-# # Show the chord changes to a song
-# def chords(request, song_id):
-#     details_list = {}
-#     song = Song.objects.get(id=song_id)
-#     details_list = sorted(details_list.iteritems())
-#     return render_to_response('song_details.html',
-#                               locals(),
-#                               RequestContext(request))

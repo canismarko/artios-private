@@ -18,9 +18,8 @@
   <li><a href="/songs/{{song.id}}/chords/">Chords</a></li>
 </ul>
 <dl>
-  {% for key, value in details_list %}
-  <dt>{{ key }}&nbsp;</dt>
-  <dd>{{ value|linebreaksbr }}&nbsp;</dd>
+  {% for detail in details_list %}
+  {% cycle '<dt>' '<dd>' %}{{ detail }}{% cycle '</dt>' '</dd>' %}
   {% endfor %}
 </dl>
 {% endif %}
