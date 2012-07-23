@@ -20,7 +20,7 @@ class Song(models.Model):
     order = models.IntegerField()
     notes = models.TextField(blank=True, null=True)
     band = models.ForeignKey(Group)
-    status = models.ForeignKey(SongStatus)
+    status = models.ForeignKey(SongStatus, blank=True, null=True)
     class Meta:
         ordering = ('order',)
     def __unicode__(self):
