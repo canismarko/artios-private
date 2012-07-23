@@ -13,7 +13,7 @@ class Song(models.Model):
     artist = models.CharField(max_length=100)
     album = models.CharField(max_length=100, blank=True)
     key = models.CharField(max_length=20, blank=True, null=True)
-    band_singer = models.ForeignKey(BandMember)
+    band_singer = models.ForeignKey(BandMember, blank=True, null=True)
     tempo = models.CharField(max_length=20, blank=True, null=True)
     lyrics = models.TextField(blank=True, null=True)
     chords = models.TextField(blank=True, null=True)
