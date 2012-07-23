@@ -19,7 +19,7 @@
 </ul>
 <dl>
   {% for detail in details_list %}
-  {% cycle '<dt>' '<dd>' %}{{ detail }}{% cycle '</dt>' '</dd>' %}
+  {% cycle '<dt>' '<dd>' %}{{ detail|linebreaksbr }}{% cycle '</dt>' '</dd>' %}
   {% endfor %}
 </dl>
 {% endif %}
