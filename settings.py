@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'worksheet',
     'minutes',
     'savings',
+    'songs',
 )
 
 # A sample logging configuration. The only tangible logging
