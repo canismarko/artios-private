@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render_to_response
 from django.template import RequestContext
 
 def home_redirect(request):
-    return redirect('/tasks/')
+    return redirect('/songs/')
 
 # Displays pages with iframe for various calendars
 def calendar(request, calendar):
