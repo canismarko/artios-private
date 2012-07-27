@@ -41,6 +41,7 @@ def detail(request, song_id, function="standard"):
                               RequestContext(request))
 
 # Edit the details of a song (excluding lyrics and notes which are in other views)
+@login_required
 def edit(request, song_id=None, function="standard"):
     # First we figure out which form to use based on the value of 'function'
     if function == "standard":
