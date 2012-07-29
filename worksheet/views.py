@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 import simplejson
 from artios_privatesite.worksheet.models import Song, Milestone, MilestoneGroup, CompletionStatus, Completion
 from artios_privatesite.worksheet.forms import *

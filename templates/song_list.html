@@ -3,11 +3,11 @@
 <a class="btn" href="add/">Add</a>
 <table>
   <tr>
-    <th>Title</th>
-    <th>Artist</th>
+    <th><a href="order/title/">Title<a>{% if request.session.sort_field = 'title' %}&nbsp;{% if request.session.sort_order = -1 %}<i class="icon-chevron-up" />{% else %}<i class="icon-chevron-down" />{% endif %}{% endif %}</th>
+    <th><a href="order/artist/">Artist</a>{% if request.session.sort_field = 'artist' %}&nbsp;{% if request.session.sort_order = -1 %}<i class="icon-chevron-up" />{% else %}<i class="icon-chevron-down" />{% endif %}{% endif %}</th>
     <th>Key</th>
-    <th>Singer</th>
-    <th>Status</th>
+    <th><a href="order/band_singer/">Singer</a>{% if request.session.sort_field = 'band_singer' %}&nbsp;{% if request.session.sort_order = -1 %}<i class="icon-chevron-up" />{% else %}<i class="icon-chevron-down" />{% endif %}{% endif %}</th>
+    <th><a href="order/status/">Status</a>{% if request.session.sort_field = 'status' %}&nbsp;{% if request.session.sort_order = -1 %}<i class="icon-chevron-up" />{% else %}<i class="icon-chevron-down" />{% endif %}{% endif %}</th>
   </tr>
 {% for song in song_list %}
   <tr>

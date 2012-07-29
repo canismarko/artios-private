@@ -7,11 +7,34 @@ from artios_privatesite.songs.forms import *
 from django.db.models import Q
 
 # List the songs in a table view
-def list(request):
+def list(request, new_sort_field='none'):
     # TODO: Add ability to filter and search.
     #   search functions are already written
     #   below but might need modification.
-    song_list = Song.objects.order_by('order')
+
+    # Make sure the necessary variables exist
+    try:
+        request.session['sort_field']
+        request.session['sort_order']
+    except KeyError:
+        request.session['sort_field'] = 'title'
+        request.session['sort_order'] = 1
+    # If the user asked to changed the order...
+    if new_sort_field != 'none':
+        # ...then set the session variables
+        if request.session['sort_field'] == new_sort_field:
+            request.session['sort_order'] = request.session['sort_order'] * -1
+        else:
+            request.session['sort_field'] = new_sort_field
+            request.session['sort_order'] = 1
+        return redirect('/songs/')
+    # Construct the Model.order_by string
+    if request.session['sort_order'] == -1:
+        order_by_string = '-' + request.session['sort_field']
+    else:
+        order_by_string = request.session['sort_field']
+    # Get the actual list of songs
+    song_list = Song.objects.order_by(order_by_string)
     return render_to_response('song_list.html',
                               locals(), 
                               RequestContext(request))
