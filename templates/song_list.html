@@ -8,6 +8,7 @@
     <th>Key</th>
     <th><a href="order/band_singer/">Singer</a>{% if request.session.sort_field = 'band_singer' %}&nbsp;{% if request.session.sort_order = -1 %}<i class="icon-chevron-up" />{% else %}<i class="icon-chevron-down" />{% endif %}{% endif %}</th>
     <th><a href="order/status/">Status</a>{% if request.session.sort_field = 'status' %}&nbsp;{% if request.session.sort_order = -1 %}<i class="icon-chevron-up" />{% else %}<i class="icon-chevron-down" />{% endif %}{% endif %}</th>
+    <th colspan="3">Actions</th>
   </tr>
 {% for song in song_list %}
   <tr>
