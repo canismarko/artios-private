@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import date
 import time
 from artios_privatesite.main.models import BandMember
@@ -85,6 +85,7 @@ def spend(request, member='none'):
 
 # The user will add some practice time
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def add(request):
     # If form was submitted...
     if request.method == 'POST':
@@ -101,6 +102,7 @@ def add(request):
 
 # Display a list that allows the user to modify the entries
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def modify(request, year, month, day):
     today = date(int(year), int(month), int(day))
     date_string = today.strftime("%d %b %Y")

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from artios_privatesite.tasks.models import Task
 from artios_privatesite.tasks.forms import TaskForm
 
@@ -17,6 +17,7 @@ def task_list(request):
 # Displays a form to modify a task and then validates 
 # and saves the updated object.
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def modify(request, task_id):
     task = Task.objects.get(id=task_id)
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def detail(request, task_id):
     return HttpResponse("Task detail " + task_id)
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 # First ask to confirm and then actually delete a task from the Artios list
 def delete(request, task_id):
     task = Task.objects.get(id=task_id)
@@ -65,6 +67,7 @@ def delete(request, task_id):
                                   RequestContext(request))
 
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 # Let the user add a task (display a form or validate and store POST data)
 def add_task(request):
     if request.method == 'POST':

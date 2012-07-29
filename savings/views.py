@@ -1,11 +1,12 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from artios_privatesite.savings.models import Transaction
 from artios_privatesite.savings.forms import TransactionForm
 
 # Display the summary of the account
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def overview(request):
     transactions = Transaction.objects.order_by('date')
     transaction_list = []
@@ -36,6 +37,7 @@ def overview(request):
 
 # Add a new transaction as detailed by the user
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def add(request):
     if request.method == 'POST':
         form = TransactionForm(request.POST)
@@ -51,6 +53,7 @@ def add(request):
 
 # Toggle whether a transaction is active
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def toggle(request, transaction_id):
     transaction = Transaction.objects.get(id=transaction_id)
     if transaction.active == True:

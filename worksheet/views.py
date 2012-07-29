@@ -10,6 +10,10 @@ from artios_privatesite.worksheet.forms import *
 # Displays a table of the album progress so far
 @login_required
 def overview(request):
+    groups = request.user.groups.all()
+    username = request.user.username
+    count = request.user.groups.filter(name='Artios').count()
+    # assert False
     song_list = Song.objects.order_by('recording_order')
     number_of_columns = Song.objects.count() + 1 # used by template
     # milestone_list = Milestone.objects.order_by('group')
@@ -73,6 +77,7 @@ def overview(request):
 
 # Ask the user which song and milestone he want to modify
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def modify_prompt(request):
     # If the user has specified which song and milestone
     if request.method == 'POST':
@@ -119,6 +124,7 @@ def modify_prompt(request):
 # Allows the user the change the status of a Completion object
 #   returns the new display string (primarily used for AJAX calls).
 @login_required
+@user_passes_test(lambda u: u.groups.filter(name='Artios').count() > 0)
 def ajax_status(request, song_id, milestone_id):
     # Get the current status or create a new one if it doesn't exist
     try:
