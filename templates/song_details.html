@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
-{#% block external_style %}{% endblock %#}
-{#% block style %}{% endblock %#}
+{% block external_style %}
+{{ block.super }}
+{% endblock %}
+{% block style %}
+{{ block.super }}
+{% endblock %}
 {% block content %}
 <a href="/songs/">&lt;&lt;Back to song list</a>
 <h2><a href="/songs/{{song.id}}/">{{ title }}</a></h2>
@@ -14,10 +18,10 @@
 {% csrf_token %}
 </form>
 {% else %}
-<ul>
-  <li><a href="/songs/{{song.id}}/">Details</a></li>
-  <li><a href="/songs/{{song.id}}/lyrics/">Lyrics</a></li>
-  <li><a href="/songs/{{song.id}}/chords/">Chords</a></li>
+<ul class="nav nav-tabs">
+  <li{% if function = 'standard' %} class="active"{% endif %}><a href="/songs/{{song.id}}/">Details</a></li>
+  <li{% if function = 'lyrics' %} class="active"{% endif %}><a href="/songs/{{song.id}}/lyrics/">Lyrics</a></li>
+  <li{% if function = 'chords' %} class="active"{% endif %}><a href="/songs/{{song.id}}/chords/">Chords</a></li>
 </ul>
   <a href="modify/" class="btn">Edit</a>
 <dl>
