@@ -82,7 +82,13 @@
 	    </li>
 	    <li{% if 'savings' in request.get_full_path %} class="active"{% endif %}><a href="/savings/">Savings</a></li>
 	    <li{% if 'TODO' in request.get_full_path %} class="active"{% endif %}><a href="#">Misc</a></li>
-	    <li{% if 'songs' in request.get_full_path %} class="active"{% endif %}><a href="/songs/">Songs</a></li>
+	    <li class="dropdown{% if 'songs' in request.get_full_path or 'setlists' in request.get_full_path %} active{% endif %}">
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Songs <b class="caret"></b></a>
+	      <ul class="dropdown-menu">
+		<li><a href="/songs/">All</a></li>
+		<li><a href="/songs/setlists/">Set-lists</a></li>
+	      </ul>
+	    </li>
 	  </ul>
 	  <ul class="nav pull-right">
 	    <li class="pull-right"><a href="/admin/">Admin</a></li>

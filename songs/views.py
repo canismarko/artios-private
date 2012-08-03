@@ -2,7 +2,7 @@ import re
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from artios_privatesite.songs.models import Song
+from artios_privatesite.songs.models import *
 from artios_privatesite.songs.forms import *
 from django.db.models import Q
 
@@ -102,6 +102,101 @@ def edit(request, song_id=None, function="standard"):
         title = "New Song"
         form = DynamicForm()
     return render_to_response('song_details.html',
+                              locals(),
+                              RequestContext(request))
+
+# Return a list of all the set-lists for the user to see
+def setlists(request):
+    '''
+    View that displays all the set lists and allows the user to pick one
+    '''
+    set_lists = SetList.objects.all()
+    return render_to_response('setlist_list.html',
+                              locals(),
+                              RequestContext(request))
+
+def setlist_detail(request, setlist_id):
+    '''
+    View that shows the details of a given set list
+    '''
+    # Get the set list and organize the sets into variable song_list
+    setlist = SetList.objects.get(id=setlist_id)
+    song_list = []
+    sets = Set.objects.filter(set_list__id=setlist_id).order_by('set_number')
+    for show_set in sets:
+        if show_set.set_number == 0:
+            unassigned_set = show_set
+        else:
+            songs = SetListSong.objects.filter(set__id=show_set.id).order_by('order')
+            song_list.append(show_set.set_number)
+            song_list.append(songs)
+    if unassigned_set:
+        songs = SetListSong.objects.filter(set__id=unassigned_set.id).order_by('order')
+        song_list.append(unassigned_set.set_number)
+        song_list.append(songs)
+    # render the template
+    return render_to_response('setlist_detail.html',
+                              locals(),
+                              RequestContext(request))
+
+# allows the user to add or remove songs from a setlist pool
+def setlist_addremove(request, setlist_id):
+    setlist = SetList.objects.get(id=setlist_id)
+    unassigned_set = Set.objects.get(set_list__id=setlist_id, set_number=0)
+    # The user has posted some data that needs to be processed
+    if request.method == "POST":
+        # First check for additions
+        for request_song in request.POST:
+            # For each checkbox, first make sure it's actually a song checkbox
+            if request_song.rfind(u'song') == 0:
+                song_number = str(request_song.strip('song'))
+                song = Song.objects.get(id=song_number)
+                try: # If the entry already exists, then nothing left to do
+                    SetListSong.objects.get(song__id=song_number, set__set_list__id=setlist_id)
+                except: # User added a new song to this set list
+                    new_song = SetListSong(song=song, set=unassigned_set, order=0)
+                    new_song.save()
+        # Now test for removals
+        set_list_songs = SetListSong.objects.filter(set__set_list__id=setlist_id)
+        for set_list_song in set_list_songs:
+            song_found = False
+            for request_song in request.POST:
+                try:
+                    if int(request_song.strip('song')) == set_list_song.song.id:
+                        song_found = True
+                except ValueError:
+                    pass
+            if not song_found:
+                set_list_song.delete()
+        return redirect('/songs/setlists/' + str(setlist_id) + '/')
+    # The user needs a blank form
+    else:
+        songs = Song.objects.order_by('title')
+        song_list = []
+        # This for loop makes a new list with the added ['checked'] item
+        for song in songs:
+            song_detail = {}
+            try:
+                SetListSong.objects.get(song__id=song.id, set__set_list__id=setlist_id)
+                song_detail['checked'] = 'checked'
+            except:
+                song_detail['checked'] = ''
+            song_detail['id'] = song.id
+            song_detail['title'] = song.title
+            song_detail['artist'] = song.artist
+            song_detail['status'] = song.status.display
+            song_list.append(song_detail)
+    function = 'addremove'
+    return render_to_response('setlist_detail.html',
+                              locals(),
+                              RequestContext(request))
+
+# Allows the user to arrange the songs into sets
+def setlist_arrange(request, setlist_id):
+    setlist = SetList.objects.get(id=setlist_id)
+    sets = Set.objects.filter(set_list__id=setlist_id).order_by('set_number')
+    function = 'arrange'
+    return render_to_response('setlist_detail.html',
                               locals(),
                               RequestContext(request))
 

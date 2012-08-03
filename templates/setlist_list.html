@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Event</th>
+    <th>Location</th>
+    <th>Songs</th>
+  </tr>
+  {% for set_list in set_lists %}
+  <tr>
+    <td>{{ set_list.date }}</td>
+    <td><a href="{{ set_list.id }}/">{{ set_list.name }}</a></td>
+    <td>{{ set_list.location }}</td>
+    <td>{{ set_list.setlistsong_set.count }}</td>
+    <td><a href="{{ set_list.id }}/addremove/" class="btn">Populate</a></td>
+    <td><a href="{{ set_list.id}}/arrange/" class="btn">Arrange</a></td>
+    <td>Print</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<a href="/songs/setlists/">&lt;&lt;Back to setlists</a><br />
+Show: {{ setlist.name }}<br>
+Date: {{ setlist.date }}<br>
+Venue: {{ setlist.location }}<br>
+Band: {{ setlist.band }}<br>
+<hr />
+{% if function = 'addremove' %}
+<form method="POST" action="">
+<input type="submit" class="btn" value="Save" /><a href="../" class="btn">Cancel</a>
+{% csrf_token %}
+<table>
+  <tr>
+    <th>&nbsp;</th>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Status</th>
+  </tr>
+  {% for song in song_list %}
+  <tr>
+    <td><input type="checkbox" name="song{{ song.id}}" value="True"{% if song.checked = 'checked' %} checked="checked"{% endif %} /></td>
+    <td>{{ song.title }}</td>
+    <td>{{ song.artist }}</td>
+    <td>{{ song.status }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% elif function = 'arrange' %}
+<form method="POST" action="">
+<input type="submit" class="btn" value="Save" /><a href="../" class="btn">Cancel</a>
+{% csrf_token %}
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Status</th>
+    <th>Set</th>
+  </tr>
+  {% for set in sets %}
+  <tr>
+    <th colspan="3">{% if set.set_number = 0 %}Unassigned{% else %}Set {{ set.set_number }}{% endif %}</th>
+  </tr>
+  {% for song in set.setlistsong_set.all %}
+  <tr>
+    <td>{{ song.song.title }}</td>
+    <td>{{ song.song.artist }}</td>
+    <td>{{ song.song.status.display }}</td>
+    <td>
+      <select name="slctSet{{ song.id }}">
+	{% for inner_set in sets %}
+	<option{% if inner_set.set_number = song.set.set_number %} selected="selected"{% endif %}>{% if inner_set.set_number = 0 %}Unassigned{% else %}{{ inner_set.set_number}}{% endif %}</option>
+	{% endfor %}
+      </select>
+      <input type="text" name="txtOrder{{ song.id }}" value="{{ song.order }}" />
+    </td>
+  </tr>
+  {% endfor %}
+  {% endfor %}
+</table>
+{% else %}
+<a href="addremove/" class="btn">Populate</a><a href="arrange/" class="btn">Arrange</a><a href="" class="btn">Print</a>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Key</th>
+    <th>Tempo</th>
+    <th>Singer</th>
+  </tr>
+  {% for song_list_entry in song_list %}
+  <tr>
+    {% if forloop.counter|divisibleby:2 %}
+    {% for song in song_list_entry %}
+  <tr>
+    <td>{{ song.song.title }}</td>
+    <td>{{ song.song.artist }}</td>
+    <td>{{ song.song.key }}</td>
+    <td>{{ song.song.tempo }}</td>
+    <td>{{ song.song.band_singer }}</td>
+  </tr>
+  {% endfor %}
+  {% else %}
+    <th colspan="5">{% if song_list_entry = 0 %}Unassigned{% else %}Set {{ song_list_entry }}{% endif %}</th>
+    {% endif %}
+  </tr>
+  {% comment %}
+  {% endcomment %}
+  {% endfor %}
+</table>
+{% endif %}
+{% endblock %}
