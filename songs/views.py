@@ -195,6 +195,25 @@ def setlist_addremove(request, setlist_id):
 def setlist_arrange(request, setlist_id):
     setlist = SetList.objects.get(id=setlist_id)
     sets = Set.objects.filter(set_list__id=setlist_id).order_by('set_number')
+    if request.method == 'POST':
+        for request_item in request.POST:
+            # Modify the orders
+            if request_item.find('txtOrder') > -1:
+                setlistsong_id = int(request_item.strip('txtOrder'))
+                setlistsong = SetListSong.objects.get(id=setlistsong_id)
+                setlistsong.order = request.POST[request_item]
+                setlistsong.save()
+            # Modify the set relationships
+            if request_item.find('slctSet') > -1:
+                setlistsong_id = int(request_item.strip('slctSet'))
+                setlistsong = SetListSong.objects.get(id=setlistsong_id)
+                if request.POST[request_item] == u'Unassigned':
+                    newset = 0
+                else:
+                    newset = int(request.POST[request_item])
+                new_set = Set.objects.get(set_list_id=setlist_id, set_number=newset)
+                setlistsong.set = new_set
+                setlistsong.save()
     function = 'arrange'
     return render_to_response('setlist_detail.html',
                               locals(),
