@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
+{% block style %}
+{{ block.super }}
+.song_order
+{
+    width: 50px;
+}
+.song_set
+{
+    width: 120px;
+}
+{% endblock %}
 {% block content %}
 <a href="/songs/setlists/">&lt;&lt;Back to setlists</a><br />
 Show: {{ setlist.name }}<br>
@@ -36,10 +47,11 @@ Band: {{ setlist.band }}<br>
     <th>Artist</th>
     <th>Status</th>
     <th>Set</th>
+    <th>Order</th>
   </tr>
   {% for set in sets %}
   <tr>
-    <th colspan="3">{% if set.set_number = 0 %}Unassigned{% else %}Set {{ set.set_number }}{% endif %}</th>
+    <th colspan="5">{% if set.set_number = 0 %}Unassigned{% else %}Set {{ set.set_number }}{% endif %}</th>
   </tr>
   {% for song in set.setlistsong_set.all %}
   <tr>
@@ -47,12 +59,14 @@ Band: {{ setlist.band }}<br>
     <td>{{ song.song.artist }}</td>
     <td>{{ song.song.status.display }}</td>
     <td>
-      <select name="slctSet{{ song.id }}">
+      <select name="slctSet{{ song.id }}" class="song_set">
 	{% for inner_set in sets %}
 	<option{% if inner_set.set_number = song.set.set_number %} selected="selected"{% endif %}>{% if inner_set.set_number = 0 %}Unassigned{% else %}{{ inner_set.set_number}}{% endif %}</option>
 	{% endfor %}
       </select>
-      <input type="text" name="txtOrder{{ song.id }}" value="{{ song.order }}" />
+    </td>
+    <td>
+      <input type="text" name="txtOrder{{ song.id }}" value="{{ song.order }}" class="song_order" />
     </td>
   </tr>
   {% endfor %}
