@@ -115,6 +115,37 @@ def setlists(request):
                               locals(),
                               RequestContext(request))
 
+@login_required
+def setlist_edit(request, setlist_id=-1):
+    '''
+    A view which allows the user to edit a current setlist
+    or add a new setlist. It also creates at least one set
+    within a new setlist in order to avoid errors down
+    the road.
+    '''
+    if request.method == 'POST': # Form is submitted...
+        try:
+            setlist = SetList.objects.get(id=setlist_id)
+            form = SetListForm(request.POST, instance=setlist)
+        except SetList.DoesNotExist:
+            form = SetListForm(request.POST)
+        if form.is_valid():
+            setlist = form.save()
+            if setlist_id == -1:
+                # A new setlist needs at least one set or else errors occur in later views functions.
+                set = Set(set_list=setlist, set_number=0)
+                set.save()
+            return redirect('/songs/setlists/')
+    else: # form for editing...
+        try:
+            setlist = SetList.objects.get(id=setlist_id)
+            setlist_form = SetListForm(instance=setlist)
+        except SetList.DoesNotExist:
+            setlist_form = SetListForm()
+    return render_to_response('setlist_form.html',
+                              locals(),
+                              RequestContext(request))  
+
 def setlist_detail(request, setlist_id):
     '''
     View that shows the details of a given set list
@@ -140,6 +171,7 @@ def setlist_detail(request, setlist_id):
                               RequestContext(request))
 
 # allows the user to add or remove songs from a setlist pool
+@login_required
 def setlist_addremove(request, setlist_id):
     setlist = SetList.objects.get(id=setlist_id)
     unassigned_set = Set.objects.get(set_list__id=setlist_id, set_number=0)
@@ -192,6 +224,7 @@ def setlist_addremove(request, setlist_id):
                               RequestContext(request))
 
 # Allows the user to arrange the songs into sets
+@login_required
 def setlist_arrange(request, setlist_id):
     setlist = SetList.objects.get(id=setlist_id)
     sets = Set.objects.filter(set_list__id=setlist_id).order_by('set_number')

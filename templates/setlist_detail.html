@@ -12,6 +12,7 @@
 {% endblock %}
 {% block content %}
 <a href="/songs/setlists/">&lt;&lt;Back to setlists</a><br />
+{% if function == None %}<a href="edit/" class="btn">Edit</a>{% endif %}<br />
 Show: {{ setlist.name }}<br>
 Date: {{ setlist.date }}<br>
 Venue: {{ setlist.location }}<br>
