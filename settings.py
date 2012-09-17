@@ -3,7 +3,7 @@
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-SITE_ROOT = '/home/mark/src/artios_privatesite/'
+# SITE_ROOT = '/home/mark/src/artios_privatesite/'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': SITE_ROOT + 'artios_privatesite-dev.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'artios_privatesite-dev.db',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -163,3 +163,10 @@ LOGGING = {
         },
     }
 }
+
+# Import settings from the local_settings.py file.
+# Repeated at end of this file.
+try:
+    from local_settings import *
+except ImportError:
+    pass
