@@ -1,6 +1,6 @@
 # Django settings for artios_privatesite project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 # SITE_ROOT = '/home/mark/src/artios_privatesite/'
