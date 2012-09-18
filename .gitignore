@@ -1,3 +1,4 @@
 *.pyc
 *~
 *.patch
+local_settings.py
