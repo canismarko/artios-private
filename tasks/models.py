@@ -1,5 +1,5 @@
 from django.db import models
-from artios_privatesite.main.models import BandMember
+from main.models import BandMember
 
 # Describes the possible status a task can have
 class Status(models.Model):
