@@ -1,8 +1,8 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required, user_passes_test
-from artios_privatesite.savings.models import Transaction
-from artios_privatesite.savings.forms import TransactionForm
+from savings.models import Transaction
+from savings.forms import TransactionForm
 
 # Display the summary of the account
 @login_required

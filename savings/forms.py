@@ -1,5 +1,5 @@
 from django import forms
-from artios_privatesite.savings.models import Transaction
+from savings.models import Transaction
 
 class TransactionForm(forms.ModelForm):
     class Meta:

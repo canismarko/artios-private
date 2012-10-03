@@ -1,5 +1,5 @@
 from django.db import models
-from artios_privatesite.main.models import BandMember
+from main.models import BandMember
 
 # Create your models here.
 class PracticeEntry(models.Model):

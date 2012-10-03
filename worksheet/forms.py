@@ -1,5 +1,5 @@
 from django import forms
-from artios_privatesite.worksheet.models import Completion
+from worksheet.models import Completion
 
 class StatusPromptForm(forms.ModelForm):
     class Meta:

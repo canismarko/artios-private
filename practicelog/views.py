@@ -6,9 +6,9 @@ from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from datetime import date
 import time
-from artios_privatesite.main.models import BandMember
-from artios_privatesite.practicelog.forms import PracticeForm
-from artios_privatesite.practicelog.models import PracticeEntry
+from main.models import BandMember
+from practicelog.forms import PracticeForm
+from practicelog.models import PracticeEntry
 
 # If no year and week is given, then redirect assuming today's values
 # This ensures that any links that assume a year and month will still work

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from artios_privatesite.worksheet.models import *
+from worksheet.models import *
 
 admin.site.register(Song)
 admin.site.register(Milestone)

@@ -8,8 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        # Examples
-                       # url(r'^$', 'artios_privatesite.views.home', name='home'),
-                       # url(r'^artios_privatesite/', include('artios_privatesite.foo.urls')),
+                       # url(r'^$', 'views.home', name='home'),
                        
                        # Uncomment the admin/doc line below to enable admin documentation
                        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
@@ -20,29 +19,28 @@ urlpatterns = patterns('',
                        url(r'^accounts/logout', logout),
 
                        # Takes us to the tasks app
-                       url('^$', 'artios_privatesite.main.views.home_redirect', name='home'),
-                       url('^wp-admin/$', 'artios_privatesite.main.views.home_redirect', name='home'),
-                       url('^tasks/', include('artios_privatesite.tasks.urls')),
+                       url('^$', 'main.views.home_redirect', name='home'),
+                       url('^wp-admin/$', 'main.views.home_redirect', name='home'),
+                       url('^tasks/', include('tasks.urls')),
 
                        # And the practice log app
-                       url('^practice/', include('artios_privatesite.practicelog.urls')),
+                       url('^practice/', include('practicelog.urls')),
 
                        # and the album checksheet app
-                       url('^worksheet/', include('artios_privatesite.worksheet.urls')),
+                       url('^worksheet/', include('worksheet.urls')),
                        
                        # App for the summary of the savings account
-                       url('^savings/', include('artios_privatesite.savings.urls')),
+                       url('^savings/', include('savings.urls')),
 
                        # The meeting minutes app
-                       url('^minutes/', include('artios_privatesite.minutes.urls')),
+                       url('^minutes/', include('minutes.urls')),
 
                        # Set lists app (songlist)
-                       url('^songs/', include('artios_privatesite.songs.urls')),
+                       url('^songs/', include('songs.urls')),
 
                        # The calendar. This does not exist as an app 
                        # but rather lives in the 'main' module
                        url('^calendar/(artios|wss)/$', 'main.views.calendar'),
 
-                       
 )
 

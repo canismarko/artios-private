@@ -1,4 +1,4 @@
 from django.contrib import admin
-from artios_privatesite.minutes.models import *
+from minutes.models import *
 
 admin.site.register(Minutes)

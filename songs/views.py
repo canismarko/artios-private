@@ -2,8 +2,8 @@ import re
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from artios_privatesite.songs.models import *
-from artios_privatesite.songs.forms import *
+from songs.models import *
+from songs.forms import *
 from django.db.models import Q
 
 # List the songs in a table view

@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-from artios_privatesite.tasks.models import Task
-from artios_privatesite.tasks.forms import TaskForm
+from tasks.models import Task
+from tasks.forms import TaskForm
 
 
 # Display a list of Artios tasks currently available

@@ -1,7 +1,7 @@
 from datetime import date
 from django.db import models
 from django.contrib.auth.models import Group
-from artios_privatesite.main.models import BandMember
+from main.models import BandMember
 
 class SongStatus(models.Model):
     display = models.CharField(max_length=50)

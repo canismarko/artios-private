@@ -1,5 +1,5 @@
 from django import forms
-from artios_privatesite.practicelog.models import PracticeEntry
+from practicelog.models import PracticeEntry
 
 class PracticeForm(forms.ModelForm):
     timestamp = forms.DateField(

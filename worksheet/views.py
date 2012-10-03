@@ -4,8 +4,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 import simplejson
-from artios_privatesite.worksheet.models import Song, Milestone, MilestoneGroup, CompletionStatus, Completion
-from artios_privatesite.worksheet.forms import *
+from worksheet.models import Song, Milestone, MilestoneGroup, CompletionStatus, Completion
+from worksheet.forms import *
 
 # Displays a table of the album progress so far
 @login_required

@@ -1,5 +1,5 @@
 from django import forms
-from artios_privatesite.songs.models import Song, SetList
+from songs.models import Song, SetList
 
 # For editing the main details of a song
 class SongEditForm(forms.ModelForm):
