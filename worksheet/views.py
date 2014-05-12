@@ -1,9 +1,11 @@
+import json
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
-import simplejson
+
 from worksheet.models import Song, Milestone, MilestoneGroup, CompletionStatus, Completion
 from worksheet.forms import *
 
@@ -148,7 +150,7 @@ def ajax_status(request, song_id, milestone_id):
     if completion.status.css_class:
         css_class += ' ' + completion.status.css_class
     response_dict = {'html': completion.status.display, 'css_class': css_class}
-    json_response = simplejson.dumps(response_dict)
+    json_response = json.dumps(response_dict)
     try:
         completion.full_clean()
         completion.save()

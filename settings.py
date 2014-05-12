@@ -3,7 +3,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-# SITE_ROOT = '/home/mark/src/artios_privatesite/'
+SITE_ROOT = '/home/mwolf/src/artios-private/'
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -58,14 +58,14 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-# STATIC_ROOT = SITE_ROOT + 'static/'
+STATIC_ROOT = SITE_ROOT + 'static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://private.artiosband.com/static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-#     SITE_ROOT + 'static/',
+     SITE_ROOT + 'static/',
 )
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
@@ -119,7 +119,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(os.path.dirname(__file__), 'templates').replace('\\','/'),
-    '/srv/artiosprivate/templates/',
+    '/srv/artios-private/templates/',
 )
 
 INSTALLED_APPS = (

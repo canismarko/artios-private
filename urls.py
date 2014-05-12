@@ -1,6 +1,9 @@
-from django.conf.urls.defaults import patterns, include, url
+from django.conf.urls import patterns, include, url
 from django.contrib.auth.views import login, logout
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
+
+import settings
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -9,10 +12,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
                        # Examples
                        # url(r'^$', 'views.home', name='home'),
-                       
+
                        # Uncomment the admin/doc line below to enable admin documentation
                        url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-                       
+
                        # Uncomment the next line to enable the admin
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^accounts/login', login),
@@ -28,7 +31,7 @@ urlpatterns = patterns('',
 
                        # and the album checksheet app
                        url('^worksheet/', include('worksheet.urls')),
-                       
+
                        # App for the summary of the savings account
                        url('^savings/', include('savings.urls')),
 
@@ -42,5 +45,4 @@ urlpatterns = patterns('',
                        # but rather lives in the 'main' module
                        url('^calendar/(artios|wss)/$', 'main.views.calendar'),
 
-)
-
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
